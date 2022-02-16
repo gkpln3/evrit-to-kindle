@@ -13,7 +13,7 @@ with open("hook.js") as f:
 count = 3
 def handle_message(message, data):
 	global count
-	with open(f"book/IDIOTS-s-{count}.xhtml", "w") as f:
+	with open(f"book/chapter-{count}.xhtml", "w") as f:
 		f.write(message['payload'])
 	count+=1
 	# print(message['payload'])
