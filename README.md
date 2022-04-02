@@ -1,5 +1,5 @@
 # Evrit Book Decryptor
-Decrypts encrypted books from Ivrit to allow sending them to Kindle devices.
+Decrypts encrypted books from Evrit to allow sending them to Kindle devices.
 
 **Don't use this to pirate books.**
 
