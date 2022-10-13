@@ -3,6 +3,11 @@ Decrypts encrypted books from Evrit to allow sending them to Kindle devices.
 
 **Don't use this to pirate books.**
 
+# Update
+This project doesn't work ATM, seems like they've changed the encryption method to use GCM instead of CBC.
+Also they've added root detection, which is kind of a bummer because it makes the app unusable on some phones.
+So I've updated the code with a root detection bypass, but didn't make it to update the decryptor itself (it also seems like evrit is not very happy with this project so I will not be updating it anytime soon).
+
 # How to use
 - Get a rooted Android phone with [frida-server](https://github.com/frida/frida/tags) (or inject `frida-gadget` into evrit's APK without rooting your phone).
 
