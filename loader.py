@@ -21,6 +21,8 @@ def start_listening_for_decryptions():
 
 	def handle_message(message, data):
 		global tempdir
+		if message["type"] == "error":
+			raise Exception(message["description"])
 		filename: str = message['payload']['name'][0]
 		filename = filename[filename.find("com_yit_evrit"):]
 
@@ -28,10 +30,19 @@ def start_listening_for_decryptions():
 	script.on("message", handle_message)
 	script.load()
 
+def pull_files(source_dir: str, target_dir: str):
+	if os.system(f"adb pull {source_dir} {target_dir} 2>/dev/null") != 0:
+		# Failed to pull, probably need root.
+		# Copy the files to /data/local/tmp and then pull them.
+		os.system("adb shell su -c 'mkdir /data/local/tmp/evritDecryptor'")
+		os.system(f"adb shell su -c 'cp -r {source_dir} /data/local/tmp/evritDecryptor'")
+		if os.system(f"adb pull /data/local/tmp/evritDecryptor {target_dir}") != 0:
+			raise Exception("Failed to pull files")
+
 def download_encrypted_epubs() -> list:
 	global tempdir
 	print(f"Downloading epubs to {tempdir}")
-	os.system(f"adb pull /data/data/com.yit.evritViewer/files/Books/ {tempdir}")
+	pull_files(f"/data/data/com.yit.evritViewer/files/Books/", tempdir)
 	epubs = []
 	for epub in glob.glob(f"{tempdir}/Books/*.epub"):
 		print(f"Unpacking {epub}")
