@@ -10,3 +10,6 @@ This script decrypt and download your books from e-vrit.co.il
 5. Run the program
     `python main.py`
 6. Open the book you want to download and it will download automatically
+
+Made by [goldeneye5599](https://github.com/goldeneye5599)  
+Happy reading  🤓
