@@ -114,9 +114,11 @@ class BookDecryptor:
         for name, data in self.book.items():
             if not name.endswith('.xhtml'):
                 continue
-            cipher = AES.new(self.key, AES.MODE_CBC)
-            dec = cipher.decrypt(data)
-            
+            try:
+                cipher = AES.new(self.key, AES.MODE_CBC)
+                dec = cipher.decrypt(data)
+            except:
+                continue # skip page decryption
             try:
                 dec = dec[dec.index(b'<!DOCTYPE'): dec.index(b'</html>') + 7]
                 dec = b'<?xml version="1.0"?>\n' + dec
